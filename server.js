@@ -1,6 +1,44 @@
-// AS A developer who writes about tech
+const path = require('path');
+const express = require('express');
+const session = require('express-session');
+const exphbs = require('express-handlebars');
+const routes = require('./controllers');
+const helpers = require('./utils/helpers');
+const sequelize = require('./config/connection');
+
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+const hbs = exphbs.create({ helpers });
+
+const sess = {
+  secret: 'Super secret secret',
+  cookie: {},
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize
+  })
+};
+
+app.use(session(sess));
+
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(routes);
+
+sequelize.sync({ force: false }).then(() => {
+  app.listen(PORT, () => console.log('Now listening'));
+});
+
 // I WANT a CMS-style blog site SO THAT I can publish articles, blog posts, and my thoughts and opinions
-// GIVEN a CMS-style blog site
 
 // WHEN I visit the site for the first time
 // THEN I am presented with the homepage, which includes existing blog posts if any have been posted; navigation links for the homepage and the dashboard; and the option to log in
@@ -14,7 +52,6 @@
 
 // WHEN I choose to sign up I am prompted to create a username and password
     //sign up form has fields for a username and password (handlebars)
-    //users have usernames and passwords (models)
 
 // WHEN I click on the sign-up button my user credentials are saved and I am logged into the site
     //sign-up button on login/signup page posts a user (controllers/userRoutes)
@@ -33,14 +70,11 @@
 // WHEN I click on an existing blog post
 // THEN I am presented with the post title, contents, post creator’s username, and date created for that post and have the option to leave a comment
     //can click on blogposts to see post information and an option to leave a comment
-    //blogposts have: title, contents, creator (foreignKey to user), and date created
-    //comments have foreignKeys to blogposts
 
 // WHEN I enter a comment and click on the submit button while signed in
 // THEN the comment is saved and the post is updated to display the comment, the comment creator’s username, and the date created
     //comment field includes a text area and a submit button
     //submit button saves comment, post adds comment
-    //comments have: creator (foreignkey to user), contents, and date created
 
 // WHEN I click on the dashboard option in the navigation
 // THEN I am taken to the dashboard and presented with any blog posts I have already created and the option to add a new blog post
@@ -50,7 +84,6 @@
 // WHEN I click on the button to add a new blog post
 // THEN I am prompted to enter both a title and contents for my blog post
     //new post button has prompts for title and contents
-
 
 // WHEN I click on the button to create a new blog post
 // THEN the title and contents of my post are saved and I am taken back to an updated dashboard with my new blog post
