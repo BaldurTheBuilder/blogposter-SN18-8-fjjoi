@@ -5,5 +5,6 @@ const { User } = require('../../models');
 
 //logout post
 
+//sign up post
 
 module.exports = router;
