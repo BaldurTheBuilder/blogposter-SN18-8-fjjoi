@@ -3,7 +3,6 @@ const { User, BlogPost, Comment } = require("../models");
 // const withAuth = require('../utils/auth');
 
 //home page
-//homepage has existing blog posts, a login button, and nav links to: homepage, dashboard (handlebars)
 router.get("/", async (req, res) => {
   try {
     const userData = await User.findAll({
@@ -28,10 +27,7 @@ router.get("/", async (req, res) => {
 
 // WHEN I click on any other links in the navigation I am prompted to either sign up or sign in
 // dashboard
-// dashboard includes a user's posts and the option to create new posts
 router.get("/dashboard", async (req, res) => {
-  //logged_in and user_id are preset for testing.
-
   if (req.session.logged_in) {
     try {
       const blogPostData = await BlogPost.findAll({
@@ -42,7 +38,6 @@ router.get("/dashboard", async (req, res) => {
       const blogPosts = blogPostData.map((post) => post.get({ plain: true }));
 
       res.render("dashboard", {
-        // dashboard includes user's blog posts
         blogPosts,
         logged_in: req.session.logged_in,
       });

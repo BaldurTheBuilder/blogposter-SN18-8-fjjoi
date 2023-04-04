@@ -28,13 +28,13 @@ navigation links for the homepage and the dashboard; and the option to log in }}
         Blog post site
       </h1>
 
-      {{! can convert this to bootstrap styles later }}
       <nav>
         {{#if logged_in}}
           <button class="btn" id="logout-btn">logout</button>
         {{else}}
           <a class="btn" href="/login">login</a>
         {{/if}}
+        {{!-- // WHEN I click on the homepage option I am taken to the homepage --}}
         <a class="btn" href="/">homepage</a>
         <a class="btn" href="/dashboard">dashboard</a>
       </nav>

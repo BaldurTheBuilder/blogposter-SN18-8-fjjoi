@@ -1,4 +1,5 @@
 $(() => {
+    // WHEN I click on the logout option in the navigation I am signed out of the site
     const logout = async (event) => {
       event.preventDefault();
 
