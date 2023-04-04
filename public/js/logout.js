@@ -1,32 +1,17 @@
 $(() => {
-    const login = async (event) => {
+    const logout = async (event) => {
       event.preventDefault();
-      const username = $("#login-username").val().trim();
-      const password = $("#login-password").val().trim();
-  
-      if(!username || !password) {
-          alert('please complete the form.');
-          return;
-      }
-  
-      const response = await fetch("/api/users/login", {
+
+      const response = await fetch("/api/users/logout", {
         method: "POST",
-        body: `{"username": "${username}", "password": "${password}"}`,
         headers: { "Content-Type": "application/json" },
       });
   
       if (response.ok) {
-        console.log('logged in!');
+        console.log('logged out!');
         document.location = "/";
-      } else alert("error logging in");
+      } else alert("error logging out.");
     };
   
-    const signup = async (event) => {
-      event.preventDefault();
-    };
-  
-    $("#login-form").submit(login);
-    $("#signup-form").submit(signup);
+    $("#logout-btn").click(logout);
   });
-
-//   <button class="btn" id="logout-btn">logout</button>
