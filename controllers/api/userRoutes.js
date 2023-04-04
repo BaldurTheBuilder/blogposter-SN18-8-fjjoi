@@ -2,6 +2,13 @@ const router = require('express').Router();
 const { User } = require('../../models');
 
 // logout post
+router.post('/logout', (req, res) => {
+    if(req.session.logged_in) {
+        req.session.destroy(() => {
+            res.status(204).end();
+        });
+    } else res.status(400).end();
+})
 
 // login post
 router.post('/login', async (req, res) => {

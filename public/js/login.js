@@ -25,18 +25,6 @@ $(() => {
     event.preventDefault();
   };
 
-  /* <form id="login-form">
-    <input type="username" id="login-username" placeholder="username">
-    <input type="password" id="login-password" placeholder="password">
-    <button type="submit" id="login-btn">Log in</button>
-</form>
-
-<form id="signup-form">
-    <input type="username" id="signup-username" placeholder="username">
-    <input type="password" id="signup-password" placeholder="password">
-    <button type="submit" id="signup-btn">Sign up</button>
-</form> */
-
   $("#login-form").submit(login);
   $("#signup-form").submit(signup);
 });
