@@ -3,6 +3,7 @@ const { User, BlogPost, Comment } = require("../models");
 // const withAuth = require('../utils/auth');
 
 //home page
+// WHEN I click on the homepage option in the navigation I am taken to the homepage and presented with existing blog posts that include the post title and the date created
 router.get("/", async (req, res) => {
   try {
     const userData = await User.findAll({
@@ -25,8 +26,8 @@ router.get("/", async (req, res) => {
   }
 });
 
-// WHEN I click on any other links in the navigation I am prompted to either sign up or sign in
 // dashboard
+// WHEN I click on any other links in the navigation I am prompted to either sign up or sign in
 router.get("/dashboard", async (req, res) => {
   if (req.session.logged_in) {
     try {
