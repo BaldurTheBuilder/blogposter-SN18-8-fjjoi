@@ -26,14 +26,17 @@ router.get('/', /*withAuth,*/ async (req, res) => {
     }
   });
 
+// WHEN I click on any other links in the navigation I am prompted to either sign up or sign in
 // dashboard
 // dashboard includes a user's posts and the option to create new posts
 router.get('/dashboard', async (req, res) => {
-  if(req.session.logged_in) {
+  //logged_in and user_id are preset for testing.
+
+  if(/*req.session.logged_in*/true) {
     try {  
       const blogPostData = await BlogPost.findAll({
         where: {
-          user_id: req.session.user_id
+          user_id: 1//req.session.user_id
         }
       });
       const blogPosts = blogPostData.map((post) => post.get({ plain: true }));
@@ -41,8 +44,6 @@ router.get('/dashboard', async (req, res) => {
       res.render('dashboard', {
         // dashboard includes user's blog posts
           blogPosts,
-          users,
-          // currently defaulted to true for testing.
            logged_in: true//req.session.logged_in,
       }
       );

@@ -1,0 +1,17 @@
+{{!-- dashboard includes all posts a user has made and a form for creating a new post--}}
+<h2>Dashboard</h2>
+{{#each blogPosts as |blogPost| }}
+<div class="row align-center mb-5">
+  <div class="col-md-6">
+    <h2>{{blogPost.title}}</h2>
+    <p>{{blogPost.contents}}</p>
+  </div>
+</div>
+{{/each}}
+
+<form data-user_id=""{{user_id}}>
+    <h4>New Post</h4>
+    <input type="Title" id="post-title" placeholder="Title">
+    <textarea id="post-contents" placeholder="Post contents here"></textarea>
+    <button type="submit" id="post-submit-btn">Submit Post</button>
+</form>
