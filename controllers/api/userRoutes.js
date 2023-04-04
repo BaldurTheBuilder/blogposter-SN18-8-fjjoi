@@ -40,7 +40,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-//sign up post
+//signup post
 router.post("/signup", async (req, res) => {
   try {
     const userData = await User.findOne({
@@ -53,8 +53,8 @@ router.post("/signup", async (req, res) => {
       res.status(400);
       return;
     }
+    // WHEN I click on the sign-up button my user credentials are saved and I am logged into the site
     User.create(req.body).then((newUser) => {
-        console.log(`--------------------------not here---------------`);
       req.session.save(() => {
         req.session.logged_in = true;
         req.session.user_id = newUser.id;

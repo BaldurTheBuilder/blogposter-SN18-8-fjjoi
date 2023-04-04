@@ -9,7 +9,6 @@
       crossorigin="anonymous"
     />
     <title>Blog poster</title>
-    {{! <link rel="stylesheet" href="../../public/css/jass.css"> }}
     <script
       src="https://code.jquery.com/jquery-3.6.3.min.js"
       integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
@@ -18,9 +17,8 @@
   </head>
 
   {{! // WHEN I visit the site for the first time
-// THEN I am presented with the homepage, which includes existing blog posts if any have been posted; 
-navigation links for the homepage and the dashboard; and the option to log in }}
-
+    // THEN I am presented with the homepage, which includes existing blog posts if any have been posted; 
+    navigation links for the homepage and the dashboard; and the option to log in }}
   {{! // WHEN I am signed in to the site I see navigation links for the homepage, the dashboard, and the option to log out}}
   <body>
     <header class="display-flex justify-space-between align-center p-2">
@@ -28,14 +26,15 @@ navigation links for the homepage and the dashboard; and the option to log in }}
         Blog post site
       </h1>
 
-      {{! can convert this to bootstrap styles later }}
       <nav>
         {{#if logged_in}}
           <button class="btn" id="logout-btn">logout</button>
         {{else}}
           <a class="btn" href="/login">login</a>
         {{/if}}
+        {{!-- // WHEN I click on the homepage option I am taken to the homepage --}}
         <a class="btn" href="/">homepage</a>
+        {{!-- // WHEN I click on the dashboard option I am taken to the dashboard and see my previous posts and the option to add a new blog post --}}
         <a class="btn" href="/dashboard">dashboard</a>
       </nav>
     </header>
