@@ -25,8 +25,8 @@ $(() => {
     event.preventDefault();
     const username = $("#signup-username").val().trim();
     const password = $("#signup-password").val().trim();
-    if(!username || !password) {
-        alert('please complete the form.');
+    if(!username || !password || password.length < 8) {
+        alert('please complete the form. Your password must be at least 8 characters.');
         return;
     }
 

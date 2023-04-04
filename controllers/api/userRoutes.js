@@ -54,6 +54,7 @@ router.post("/signup", async (req, res) => {
       return;
     }
     User.create(req.body).then((newUser) => {
+        console.log(`--------------------------not here---------------`);
       req.session.save(() => {
         req.session.logged_in = true;
         req.session.user_id = newUser.id;
