@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const { User } = require('../../models');
 
-//login post
+// logout post
 
-//logout post
+// login post
 router.post('/login', async (req, res) => {
     try {
         const userData = await User.findOne({
@@ -16,19 +16,17 @@ router.post('/login', async (req, res) => {
             res.status(400);
             return;
         }
-
         const passwordCheck = userData.checkPassword(req.body.password);
         // check the password is valid
         if(!passwordCheck) {
             res.status(400);
             return;
         }
-
         // if valid, we save logged_in and user_id to session
         req.session.save(() => {
             req.session.logged_in = true;
             req.session.user_id = userData.id;
-            res.json({user: userData});
+            res.json({user: userData, message: "Logged in"});
         });
     } catch (err) {
         res.status(500).json(err);
