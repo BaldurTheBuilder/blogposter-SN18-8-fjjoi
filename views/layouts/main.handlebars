@@ -8,22 +8,29 @@
   <link rel="stylesheet" href="../../public/css/jass.css">
 </head>
 
+{{!-- // WHEN I visit the site for the first time
+// THEN I am presented with the homepage, which includes existing blog posts if any have been posted; 
+navigation links for the homepage and the dashboard; and the option to log in --}}
 <body>
   <header class="display-flex justify-space-between align-center p-2">
     <h1>
       Blog post site
     </h1>
-    {{#if logged_in}}
+
+    {{!-- can convert this to bootstrap styles later --}}
     <nav>
-      <button class="btn" id="logout">logout</button>
+      {{#unless logged_in}}
+        <button class="btn" href="/login">login</button>
+      {{/unless}}
+      <button class="btn" href="/">homepage</button>
+      <button class="btn" href="/dashboard">dashboard</button>
     </nav>
-    {{/if}}
   </header>
+
   <main class="container container-fluid mt-5">
     {{{ body }}}
   </main>
   <footer>
-      
   </footer>
 
   {{!-- {{#if logged_in}}

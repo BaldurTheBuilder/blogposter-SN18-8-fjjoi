@@ -38,11 +38,7 @@ sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log('Now listening'));
 });
 
-// I WANT a CMS-style blog site SO THAT I can publish articles, blog posts, and my thoughts and opinions
-
-// WHEN I visit the site for the first time
-// THEN I am presented with the homepage, which includes existing blog posts if any have been posted; navigation links for the homepage and the dashboard; and the option to log in
-    //homepage has existing blog posts, a login button, and nav links to: homepage, dashboard (handlebars)
+//homepage has existing blog posts, a login button, and nav links to: homepage, dashboard (handlebars)
 
 // WHEN I click on the homepage option I am taken to the homepage
     //homepage button brings to homepage (handlebars)
