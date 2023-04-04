@@ -1,13 +1,25 @@
 $(() => {
-/* <button type="button" id="reveal-new-post-btn">Create a new Post</button>
-<div class="visually-hidden">
-    <form data-user_id=""{{user_id}}>
-        <h4>New Post</h4>
-        <input type="Title" id="post-title" placeholder="Title">
-        <textarea id="post-contents" placeholder="Post contents here"></textarea>
-        <button type="submit" id="post-submit-btn">Submit Post</button>
-    </form>
-</div> */
+const createPost = async (event) => {
+    event.preventDefault();
+    const postTitle = $('#post-title').val().trim();
+    const postContents = $('#post-contents').val().trim();
+    if(!postTitle || !postContents) {
+        alert('please have both a title and a post body.');
+        return;
+    }
+
+    const response = await fetch('/api/blogposts', {
+        method: "POST",
+        body: `{"title": "${postTitle}", "contents": "${postContents}"}`,
+        headers: {"Content-Type": "application/json"}
+    });
+
+    if(response.ok) {
+        console.log('Post created.');
+        location.reload();
+    } else alert('error creating a post.');
+}
+
 const revealNewPost = () => {
     $('#hidden-div').removeClass('visually-hidden');
 }
