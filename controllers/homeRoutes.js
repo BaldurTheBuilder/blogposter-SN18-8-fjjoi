@@ -61,7 +61,6 @@ router.get('/dashboard', async (req, res) => {
       res.redirect('/');
       return;
     }
-  
     res.render('login');
   });
 
