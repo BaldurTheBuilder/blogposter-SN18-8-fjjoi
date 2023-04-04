@@ -13,6 +13,7 @@ const { BlogPost } = require('../../models');
             title: req.body.title,
             contents: req.body.contents,
             user_id: req.session.user_id
+            // date_created defaults to now
         });
         res.status(200).json(postData);
     } catch (err) {
