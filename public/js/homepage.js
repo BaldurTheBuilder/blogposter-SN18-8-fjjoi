@@ -3,22 +3,22 @@ $(() => {
   // the post is updated to display the comment, the comment creator’s username, and the date created
   async function createComment(event) {
     event.preventDefault();
-      const commentContents = $(this).children(1).val().trim();
-      const blogPost_id = $(this).data("blog_id");
-      if (!commentContents) {
-        alert("please compose a comment.");
-        return;
-      }
-      const response = await fetch("/api/comments", {
-        method: "POST",
-        body: `{"contents": "${commentContents}", "blogPost_id": "${blogPost_id}"}`,
-        headers: { "Content-Type": "application/json" },
-      });
+    const commentContents = $(this).children(1).val().trim();
+    const blogPost_id = $(this).data("blog_id");
+    if (!commentContents) {
+      alert("please compose a comment.");
+      return;
+    }
+    const response = await fetch("/api/comments", {
+      method: "POST",
+      body: `{"contents": "${commentContents}", "blogPost_id": "${blogPost_id}"}`,
+      headers: { "Content-Type": "application/json" },
+    });
 
-      if (response.ok) {
-        console.log("comment created.");
-        location.reload();
-      } else alert("Please log in to make a comment.");
+    if (response.ok) {
+      console.log("comment created.");
+      location.reload();
+    } else alert("Please log in to make a comment.");
   }
 
   async function updateComment(event) {
@@ -30,17 +30,31 @@ $(() => {
       alert("please have a comment body.");
       return;
     }
-  
+
     const response = await fetch(`/api/comments/${comment_id}`, {
       method: "PUT",
       body: `{"contents": "${commentContents}"}`,
       headers: { "Content-Type": "application/json" },
     });
-  
+
     if (response.ok) {
       console.log("Comment updated.");
       location.reload();
     } else alert("error updating a comment.");
+  }
+
+  async function deleteComment(event) {
+    event.preventDefault();
+    const comment_id = $(this).data("comment_id");
+    const response = await fetch(`/api/comments/${comment_id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (response.ok) {
+      console.log("Comment deleted.");
+      location.reload();
+    } else alert("error deleting a comment.");
   }
 
   function revealExistingPost() {
@@ -50,15 +64,5 @@ $(() => {
   $("div[id^='post']").click(revealExistingPost);
   $("form[id^='comment-form']").submit(createComment);
   $("form[id^='update-comment-form']").submit(updateComment);
-  // $("button[id^='delete-comment-btn']").click(deleteComment);
+  $("button[id^='delete-comment-btn']").click(deleteComment);
 });
-
-
-/* <form id="update-comment-form-{{blogPost.id}}" data-blog_id="{{blogPost.id}}">
-<textarea
-  id="update-comment-contents-{{blogPost.id}}"
-  placeholder="comment"
->{{comment.contents}}</textarea>
-<button type="submit" id="update-comment-submit-btn-{{comment.id}}">Submit updates</button>
-</form>
-<button type="button" id="delete-comment-btn-{{comment.id}}"></button> */
