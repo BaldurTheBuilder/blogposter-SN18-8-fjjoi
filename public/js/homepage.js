@@ -21,10 +21,44 @@ $(() => {
       } else alert("Please log in to make a comment.");
   }
 
+  async function updateComment(event) {
+    event.preventDefault();
+    const comment_id = $(this).data("comment_id");
+    const commentContents = $(this).children(1).val().trim();
+    alert(`comment id: ${comment_id}, contents: ${commentContents}`);
+    if (!commentContents) {
+      alert("please have a comment body.");
+      return;
+    }
+  
+    const response = await fetch(`/api/comments/${comment_id}`, {
+      method: "PUT",
+      body: `{"contents": "${commentContents}"}`,
+      headers: { "Content-Type": "application/json" },
+    });
+  
+    if (response.ok) {
+      console.log("Comment updated.");
+      location.reload();
+    } else alert("error updating a comment.");
+  }
+
   function revealExistingPost() {
     $(this).find("*").removeClass("visually-hidden");
   }
 
   $("div[id^='post']").click(revealExistingPost);
   $("form[id^='comment-form']").submit(createComment);
+  $("form[id^='update-comment-form']").submit(updateComment);
+  // $("button[id^='delete-comment-btn']").click(deleteComment);
 });
+
+
+/* <form id="update-comment-form-{{blogPost.id}}" data-blog_id="{{blogPost.id}}">
+<textarea
+  id="update-comment-contents-{{blogPost.id}}"
+  placeholder="comment"
+>{{comment.contents}}</textarea>
+<button type="submit" id="update-comment-submit-btn-{{comment.id}}">Submit updates</button>
+</form>
+<button type="button" id="delete-comment-btn-{{comment.id}}"></button> */

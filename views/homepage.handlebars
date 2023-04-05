@@ -16,15 +16,15 @@
         {{#each comments as |comment|}}
           {{! // the post is updated to display the comment, the comment creator’s username, and the date created }}
           {{!-- only allow edits/deletes on comments that are owned --}}
-          {{#if (test_ownership comment.user.id ../user_id)}}
-            <form id="update-comment-form-{{blogPost.id}}" data-blog_id="{{blogPost.id}}">
+          {{#if (test_ownership comment.user.id ../../user_id)}}
+            <form id="update-comment-form-{{comment.id}}" data-comment_id="{{comment.id}}">
               <textarea
-                id="update-comment-contents-{{blogPost.id}}"
+                id="update-comment-contents-{{comment.id}}"
                 placeholder="comment"
               >{{comment.contents}}</textarea>
               <button type="submit" id="update-comment-submit-btn-{{comment.id}}">Submit updates</button>
             </form>
-            <button type="button" id="delete-comment-btn-{{comment.id}}"></button>
+            <button type="button" id="delete-comment-btn-{{comment.id}}">Delete Comment</button>
           {{else}}
             <ul>
               <li>{{comment.user.username}}</li>
