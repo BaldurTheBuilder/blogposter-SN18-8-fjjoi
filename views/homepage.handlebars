@@ -15,11 +15,23 @@
         <h4>Comments</h4>
         {{#each comments as |comment|}}
           {{! // the post is updated to display the comment, the comment creator’s username, and the date created }}
-          <ul>
-            <li>{{comment.user.username}}</li>
-            <li>{{comment.date_created}}</li>
-            <li>{{comment.contents}}</li>
-          </ul>
+          {{!-- only allow edits/deletes on comments that are owned --}}
+          {{#if (test_ownership comment.user.id ../user_id)}}
+            <form id="update-comment-form-{{blogPost.id}}" data-blog_id="{{blogPost.id}}">
+              <textarea
+                id="update-comment-contents-{{blogPost.id}}"
+                placeholder="comment"
+              >{{comment.contents}}</textarea>
+              <button type="submit" id="update-comment-submit-btn-{{comment.id}}">Submit updates</button>
+            </form>
+            <button type="button" id="delete-comment-btn-{{comment.id}}"></button>
+          {{else}}
+            <ul>
+              <li>{{comment.user.username}}</li>
+              <li>{{comment.date_created}}</li>
+              <li>{{comment.contents}}</li>
+            </ul>
+          {{/if}}
         {{/each}}
         <p>Leave a Comment:</p>
         <form id="comment-form-{{blogPost.id}}" data-blog_id="{{blogPost.id}}">
