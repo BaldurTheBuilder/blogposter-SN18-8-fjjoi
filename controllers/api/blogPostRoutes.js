@@ -17,35 +17,40 @@ router.post("/", async (req, res) => {
       console.log(err);
     }
   } else {
-    res.status(401).json({ message: "Please log in to update a comment." });
+    res.status(401).json({ message: "Please log in to create a post." });
     return;
   }
 });
 
 // delete blogpost
 router.delete("/:id", async (req, res) => {
-  try {
-    const postData = await BlogPost.findByPk(req.params.id);
-    if (!postData) {
-      res
-        .status(404)
-        .json({ message: "Unable to delete the requested blogpost." });
-      return;
-    }
+  if (req.session.logged_in) {
+    try {
+      const postData = await BlogPost.findByPk(req.params.id);
+      if (!postData) {
+        res
+          .status(404)
+          .json({ message: "Unable to delete the requested blogpost." });
+        return;
+      }
 
-    const serializedPost = postData.get({ plain: true });
-    if (serializedPost.user_id !== req.session.user_id) {
-      res
-        .status(401)
-        .json({ message: "Unable to delete the requested blogpost." });
-      return;
+      const serializedPost = postData.get({ plain: true });
+      if (serializedPost.user_id !== req.session.user_id) {
+        res
+          .status(401)
+          .json({ message: "Unable to delete the requested blogpost." });
+        return;
+      }
+      const destroyPost = await BlogPost.destroy({
+        where: { id: req.params.id },
+      });
+      res.status(200).json(destroyPost);
+    } catch (err) {
+      res.status(500).json(err);
     }
-    const destroyPost = await BlogPost.destroy({
-      where: { id: req.params.id },
-    });
-    res.status(200).json(destroyPost);
-  } catch (err) {
-    res.status(500).json(err);
+  } else {
+    res.status(401).json({ message: "Please log in to delete a post." });
+    return;
   }
 });
 
@@ -77,7 +82,7 @@ router.put("/:id", async (req, res) => {
       res.status(500).json(err);
     }
   } else {
-    res.status(401).json({ message: "Please log in to update a comment." });
+    res.status(401).json({ message: "Please log in to update a blogpost." });
     return;
   }
 });
