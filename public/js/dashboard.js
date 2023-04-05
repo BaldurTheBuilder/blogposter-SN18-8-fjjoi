@@ -73,16 +73,3 @@ async function updatePost(event) {
   $("div[id^='individual-post']").click(revealExistingPost);
   $("form[id^='edit-post-form']").submit(updatePost);
 });
-
-/* <form class="visually-hidden" id="edit-post-form-{{blogPost.id}}">
-<textarea
-  id="post-title-{{blogPost.id}}"
-  rows="1"
->{{blogPost.title}}</textarea>
-<textarea
-  id="post-contents-{{blogPost.id}}"
-  rows="6"
->{{blogPost.contents}}</textarea>
-<button type="submit" id="edit-post-button-{{blogPost.id}}">Submit
-  Changes</button>
-</form> */

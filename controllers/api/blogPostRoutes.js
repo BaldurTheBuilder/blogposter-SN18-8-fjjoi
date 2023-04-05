@@ -41,5 +41,27 @@ router.delete('/:id', async (req, res) => {
 });
 
 // update blogpost
+router.put('/:id', async (req, res) => {
+    try {
+      const postData = await BlogPost.findByPk(req.params.id);
+      if(!postData) {
+        res.status(404).json({message: 'Unable to delete the requested blogpost.'});
+        return;
+      }
+      
+      const serializedPost = postData.get({plain: true});
+      if(serializedPost.user_id !== req.session.user_id) {
+        res.status(401).json({message: "Unable to delete the requested blogpost."});
+        return;
+      }
+      const updatePost = await BlogPost.update(
+        {title: req.body.title, contents: req.body.contents},
+        {where: {id: req.params.id}}
+      );
+      res.status(200).json(updatePost);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+});
 
 module.exports = router;
