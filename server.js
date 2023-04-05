@@ -15,7 +15,9 @@ const hbs = exphbs.create({ helpers });
 
 const sess = {
   secret: 'Super secret secret',
-  cookie: {},
+  cookie: {
+    maxAge: 180000 //1000 milliseconds * 60 seconds * 30 minutes to expire
+  },
   resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({
@@ -38,14 +40,4 @@ sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log('Now listening'));
 });
 
-// homepage-related requirements
-  // WHEN I click on an existing blog post I am presented with the post title, contents, post creator’s username, and date created for that post and have the option to leave a comment
-  // WHEN I enter a comment and click on the submit button while signed in the comment is saved;
-    // the post is updated to display the comment, the comment creator’s username, and the date created
-
-// dashboard-related requirements
-  // WHEN I click on one of my existing posts in the dashboard I am able to delete or update my post and taken back to an updated dashboard
-
-// general requirements (authentication, styling, etc.)
-  // WHEN I am idle on the site for more than a set time I am able to view comments but I am prompted to log in again before I can add, update, or delete comments
-  // WHEN I revisit the site at a later time and choose to sign in I am prompted to enter my username and password
+// WHEN I am idle on the site for more than a set time I am able to view comments but I am prompted to log in again before I can add, update, or delete comments

@@ -1,11 +1,50 @@
 <h1>Homepage</h1>
-{{#each blogPosts as |blogPost| }}
-<div class="row align-center mb-5">
-  <div class="col-md-6">
-    <h2>{{blogPost.title}}</h2>
-    <p>{{blogPost.contents}}</p>
-    <p>Posted by: {{user.username}}</p>
-    <p>Created on: {{blogPost.date_created}}</p>
+{{#each blogPosts as |blogPost|}}
+  <div class="row align-center mb-5">
+    <div class="col-md-6" id="post-{{blogPost.id}}">
+      {{!   // WHEN I click on an existing blog post I am presented with the post title, contents,
+       post creator’s username, and date created for that post and have the option to leave a comment }}
+      <h3>{{blogPost.title}}</h3>
+      <div class="visually-hidden">
+        <ul>
+          <li>{{blogPost.contents}}</li>
+          <li>Posted by: {{user.username}}</li>
+          <li>Created on: {{blogPost.date_created}}</li>
+        </ul>
+        {{!-- {{> commentSection}} --}}
+        <h4>Comments</h4>
+        {{#each comments as |comment|}}
+          {{! // the post is updated to display the comment, the comment creator’s username, and the date created }}
+          {{!-- only allow edits/deletes on comments that are owned --}}
+          {{#if (test_ownership comment.user.id ../../user_id)}}
+            <form id="update-comment-form-{{comment.id}}" data-comment_id="{{comment.id}}">
+              <textarea
+                id="update-comment-contents-{{comment.id}}"
+                placeholder="comment"
+              >{{comment.contents}}</textarea>
+              <button type="submit" id="update-comment-submit-btn-{{comment.id}}">Submit updates</button>
+            </form>
+            <button type="button" id="delete-comment-btn-{{comment.id}}" data-comment_id="{{comment.id}}">Delete Comment</button>
+          {{else}}
+            <ul>
+              <li>{{comment.user.username}}</li>
+              <li>{{comment.date_created}}</li>
+              <li>{{comment.contents}}</li>
+            </ul>
+          {{/if}}
+        {{/each}}
+        <p>Leave a Comment:</p>
+        <form id="comment-form-{{blogPost.id}}" data-blog_id="{{blogPost.id}}">
+          <textarea
+            id="comment-contents-{{blogPost.id}}"
+            placeholder="comment"
+          ></textarea>
+          <button type="submit" id="comment-submit-btn-{{blogPost.id}}">Submit
+            Comment</button>
+        </form>
+      </div>
+    </div>
   </div>
-</div>
 {{/each}}
+
+<script src="/js/homepage.js"></script>

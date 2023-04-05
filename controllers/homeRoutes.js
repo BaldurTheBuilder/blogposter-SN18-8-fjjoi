@@ -12,7 +12,9 @@ router.get("/", async (req, res) => {
     const users = userData.map((project) => project.get({ plain: true }));
 
     const blogPostData = await BlogPost.findAll({
-      include: [{ model: User }],
+      include: [
+        { model: User, attributes: {exclude: ['password']} }, 
+        {model: Comment, include: {model: User, attributes: {exclude: ['password']}}}],
     });
     const blogPosts = blogPostData.map((post) => post.get({ plain: true }));
 
@@ -20,6 +22,7 @@ router.get("/", async (req, res) => {
       blogPosts,
       users,
       logged_in: req.session.logged_in,
+      user_id: req.session.user_id
     });
   } catch (err) {
     res.status(500).json(err);

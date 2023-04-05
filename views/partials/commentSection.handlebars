@@ -1,0 +1,20 @@
+{{!-- not currently in use --}}
+
+
+<h4>Comments</h4>
+{{#each comments as |comment|}}
+  {{! // the post is updated to display the comment, the comment creator’s username, and the date created }}
+  <ul>
+    <li>{{comment.user.username}}</li>
+    <li>{{comment.date_created}}</li>
+    <li>{{comment.contents}}</li>
+  </ul>
+{{/each}}
+<p>Leave a Comment:</p>
+<form id="comment-form-{{blogPost.id}}" data-blog_id="{{blogPost.id}}">
+  <textarea
+    id="comment-contents-{{blogPost.id}}"
+    placeholder="comment"
+  ></textarea>
+  <button type="submit" id="comment-submit-btn-{{blogPost.id}}">Submit Comment</button>
+</form>
