@@ -46,3 +46,10 @@ sequelize.sync({ force: false }).then(() => {
   // WHEN I am idle on the site for more than a set time I am able to view comments but I am prompted to log in again before I can add, update, or delete comments
   // styling (for app quality points, 15%)
   // confirm authentication is complete
+
+
+  // to do: 
+  // fix issue preventing comment section handlebars from bringing in blog post information
+  // fix issue preventing comments section from bringing in commenting user's name
+  // make it look prettier
+  // fix issue preventing comment posts from working

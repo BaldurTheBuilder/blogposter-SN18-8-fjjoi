@@ -50,6 +50,7 @@ router.post("/signup", async (req, res) => {
     });
     // check if a username already exists
     if (userData) {
+      alert('please log in.');
       res.status(400);
       return;
     }
