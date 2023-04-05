@@ -8,8 +8,8 @@
     </ul>
 {{/each}}
 
-<form id="comment-form-{{blogPost.id}}">
+<form id="comment-form-{{blogPost.id}}" data-blog_id="{{blogPost.id}}" >
     <p>Leave a Comment:</p>
-    <textarea id="comment-contents-{{blogPost.id}}" data-id="" placeholder="comment"></textarea>
+    <textarea id="comment-contents-{{blogPost.id}}" placeholder="comment"></textarea>
     <button type="submit" id="comment-submit-btn-{{blogPost.id}}">Submit Comment</button>
 </form>
