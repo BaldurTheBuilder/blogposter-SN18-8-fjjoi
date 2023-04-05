@@ -1,8 +1,11 @@
-{{#each blogPost.comments as |comment|}}
+<h4>Comments</h4>
+{{#each comments as |comment|}}
       {{!-- // the post is updated to display the comment, the comment creator’s username, and the date created --}}
-    <p>{{comment.user_id}}</p>
-    <p>{{comment.date_created}}</p>
-    <p>{{comment.contents}}</p>
+    <ul>
+        <li>{{comment.user_id}}</li>
+        <li>{{comment.date_created}}</li>
+        <li>{{comment.contents}}</li>
+    </ul>
 {{/each}}
 
 <form id="comment-form-{{blogPost.id}}">
@@ -10,9 +13,3 @@
     <textarea id="comment-contents-{{blogPost.id}}" data-id="" placeholder="comment"></textarea>
     <button type="submit" id="comment-submit-btn-{{blogPost.id}}">Submit Comment</button>
 </form>
-
-
-        {{!-- contents
-        date_created
-        user_id:
-        blogPost_id: --}}

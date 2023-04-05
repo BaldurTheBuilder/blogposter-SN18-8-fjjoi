@@ -4,11 +4,13 @@
     <div class="col-md-6" id="post-{{blogPost.id}}">
       {{!--   // WHEN I click on an existing blog post I am presented with the post title, contents,
        post creator’s username, and date created for that post and have the option to leave a comment --}}
-      <h2>{{blogPost.title}}</h2>
+      <h3>{{blogPost.title}}</h3>
       <div class="visually-hidden">
-        <p>{{blogPost.contents}}</p>
-        <p>Posted by: {{user.username}}</p>
-        <p>Created on: {{blogPost.date_created}}</p>
+        <ul>
+          <li>{{blogPost.contents}}</li>
+          <li>Posted by: {{user.username}}</li>
+          <li>Created on: {{blogPost.date_created}}</li>
+        </ul>
         {{> commentSection}}
       </div>
     </div>
