@@ -1,11 +1,18 @@
 <h1>Homepage</h1>
-{{#each blogPosts as |blogPost| }}
-<div class="row align-center mb-5">
-  <div class="col-md-6">
-    <h2>{{blogPost.title}}</h2>
-    <p>{{blogPost.contents}}</p>
-    <p>Posted by: {{user.username}}</p>
-    <p>Created on: {{blogPost.date_created}}</p>
+{{#each blogPosts as |blogPost|}}
+  <div class="row align-center mb-5">
+    <div class="col-md-6" id="post-{{blogPost.id}}">
+      {{!--   // WHEN I click on an existing blog post I am presented with the post title, contents,
+       post creator’s username, and date created for that post and have the option to leave a comment --}}
+      <h2>{{blogPost.title}}</h2>
+      <div class="visually-hidden">
+        <p>{{blogPost.contents}}</p>
+        <p>Posted by: {{user.username}}</p>
+        <p>Created on: {{blogPost.date_created}}</p>
+        {{> commentSection}}
+      </div>
+    </div>
   </div>
-</div>
 {{/each}}
+
+<script src="/js/homepage.js"></script>

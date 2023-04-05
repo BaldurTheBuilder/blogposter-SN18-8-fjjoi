@@ -1,4 +1,5 @@
 $(() => {
+    // WHEN I revisit the site at a later time and choose to sign in I am prompted to enter my username and password
   const login = async (event) => {
     event.preventDefault();
     const username = $("#login-username").val().trim();

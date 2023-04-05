@@ -47,6 +47,7 @@ async function updatePost(event) {
     return;
   }
 
+  // WHEN I click on one of my existing posts in the dashboard I am able to delete or update my post and am taken back to an updated dashboard
   const response = await fetch(`/api/blogposts/${blogPost_id}`, {
     method: "PUT",
     body: `{"title": "${postTitle}", "contents": "${postContents}"}`,
