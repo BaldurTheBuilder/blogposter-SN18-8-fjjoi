@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { BlogPost } = require("../../models");
 
-//create blogpost
+// create blogpost
 router.post("/", async (req, res) => {
   try {
     const postData = await BlogPost.create({
@@ -16,5 +16,9 @@ router.post("/", async (req, res) => {
     console.log(err);
   }
 });
+
+// delete blogpost
+
+// update blogpost
 
 module.exports = router;

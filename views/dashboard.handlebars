@@ -1,10 +1,10 @@
 {{!-- dashboard includes all posts a user has made and a form for creating a new post--}}
 <h2>Dashboard</h2>
 {{#each blogPosts as |blogPost| }}
-<div class="row align-center mb-5">
+<div class="row align-center mb-5" id="individual-post-{{blogPost.id}}">
   <div class="col-md-6">
     <h2>{{blogPost.title}}</h2>
-    <p>{{blogPost.contents}}</p>
+    <p class="visually-hidden" id="post-contents">{{blogPost.contents}}</p>
   </div>
 </div>
 {{/each}}

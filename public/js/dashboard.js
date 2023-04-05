@@ -25,6 +25,11 @@ $(() => {
     $("#hidden-div").removeClass("visually-hidden");
   };
 
-  $("#reveal-new-post-btn").click(revealNewPost);
+  function revealExistingPost () {
+    $(this).find('*').removeClass("visually-hidden");
+  };
+
   $("#new-post-form").submit(createPost);
+  $("#reveal-new-post-btn").click(revealNewPost);
+  $("div[id^='individual-post']").click(revealExistingPost);
 });
