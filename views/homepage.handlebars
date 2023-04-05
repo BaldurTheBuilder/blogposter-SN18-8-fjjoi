@@ -16,7 +16,7 @@
         {{#each comments as |comment|}}
           {{! // the post is updated to display the comment, the comment creator’s username, and the date created }}
           <ul>
-            <li>{{comment.username}}</li>
+            <li>{{comment.user.username}}</li>
             <li>{{comment.date_created}}</li>
             <li>{{comment.contents}}</li>
           </ul>

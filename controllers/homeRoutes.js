@@ -12,7 +12,9 @@ router.get("/", async (req, res) => {
     const users = userData.map((project) => project.get({ plain: true }));
 
     const blogPostData = await BlogPost.findAll({
-      include: [{ model: User }, {model: Comment}],
+      include: [
+        { model: User, attributes: {exclude: ['password']} }, 
+        {model: Comment, include: {model: User, attributes: {exclude: ['password']}}}],
     });
     const blogPosts = blogPostData.map((post) => post.get({ plain: true }));
 

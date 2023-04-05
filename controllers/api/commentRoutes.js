@@ -1,23 +1,23 @@
-const router = require('express').Router();
-const { Comment } = require('../../models');
+const router = require("express").Router();
+const { Comment } = require("../../models");
 
 router.post("/", async (req, res) => {
+  if (req.session.logged_in) {
     try {
-      if(!req.session.logged_in) {
-        res.render("login");
-        return;
-      }
-      const commentData = await Comment.create({
+      Comment.create({
         contents: req.body.contents,
         user_id: req.session.user_id,
-        blogPost_id: req.body.blogPost_id
+        blogPost_id: req.body.blogPost_id,
         // date_created defaults to now
-      });
-      res.status(200).json(commentData);
+      }).then((results) => res.status(200).json(results));
     } catch (err) {
-      res.status(500).json(err);
       console.log(err);
+      res.status(400).json(err);
     }
-  });
+  } else {
+    res.status(401).json({message: "Please log in to post a comment."});
+    return;
+  }
+});
 
 module.exports = router;
