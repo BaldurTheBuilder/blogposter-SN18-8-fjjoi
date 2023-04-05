@@ -20,6 +20,7 @@ router.post("/", async (req, res) => {
 // delete blogpost
 router.delete('/:id', async (req, res) => {
     try {
+        console.log('-----------------made it to the route');
       const postData = await BlogPost.findByPk(req.params.id);
       if(!postData) {
         res.status(404).json({message: 'Unable to delete the requested blogpost.'});

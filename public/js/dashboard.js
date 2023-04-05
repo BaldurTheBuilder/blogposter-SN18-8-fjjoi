@@ -4,6 +4,7 @@ $(() => {
     event.preventDefault();
     const postTitle = $("#post-title").val().trim();
     const postContents = $("#post-contents").val().trim();
+    console.log(postTitle+'   '+postContents);
     if (!postTitle || !postContents) {
       alert("please have both a title and a post body.");
       return;
@@ -21,9 +22,10 @@ $(() => {
     } else alert("error creating a post.");
   };
 
-  const deletePost = async (event) => {
+  async function deletePost(event) {
     event.preventDefault();
-    const blogPost_id = $(this).data("blogPost_id");
+    console.log('made it past the button')
+    const blogPost_id = $(this).data("post_id");
     const response = await fetch(`/api/blogposts/${blogPost_id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
@@ -46,7 +48,7 @@ $(() => {
   };
 
   $("#new-post-form").submit(createPost);
-  $("#button[id^='del-post-btn']").click(deletePost);
+  $("button[id^='del-post-btn']").click(deletePost);
   $("#reveal-new-post-btn").click(revealNewPost);
   $("div[id^='individual-post']").click(revealExistingPost);
 });
