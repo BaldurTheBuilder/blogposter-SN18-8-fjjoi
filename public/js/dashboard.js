@@ -4,7 +4,6 @@ $(() => {
     event.preventDefault();
     const postTitle = $("#post-title").val().trim();
     const postContents = $("#post-contents").val().trim();
-    console.log(postTitle+'   '+postContents);
     if (!postTitle || !postContents) {
       alert("please have both a title and a post body.");
       return;
@@ -38,6 +37,27 @@ $(() => {
     }
   }
 
+async function updatePost(event) {
+  event.preventDefault();
+  const blogPost_id = $(this).data("post_id");
+  const postTitle = $(this).children(0).val().trim();
+  const postContents = $(this).children(1).val().trim();
+  if (!postTitle || !postContents) {
+    alert("please have both a title and a post body.");
+    return;
+  }
+
+  const response = await fetch(`/api/blogposts/${blogPost_id}`, {
+    method: "PUT",
+    body: `{"title": "${postTitle}", "contents": "${postContents}"}`,
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (response.ok) {
+    console.log("Post updated.");
+    location.reload();
+  } else alert("error updating a post.");
+}
 
   const revealNewPost = () => {
     $("#hidden-div").removeClass("visually-hidden");
@@ -51,4 +71,18 @@ $(() => {
   $("button[id^='del-post-btn']").click(deletePost);
   $("#reveal-new-post-btn").click(revealNewPost);
   $("div[id^='individual-post']").click(revealExistingPost);
+  $("form[id^='edit-post-form']").submit(updatePost);
 });
+
+/* <form class="visually-hidden" id="edit-post-form-{{blogPost.id}}">
+<textarea
+  id="post-title-{{blogPost.id}}"
+  rows="1"
+>{{blogPost.title}}</textarea>
+<textarea
+  id="post-contents-{{blogPost.id}}"
+  rows="6"
+>{{blogPost.contents}}</textarea>
+<button type="submit" id="edit-post-button-{{blogPost.id}}">Submit
+  Changes</button>
+</form> */
